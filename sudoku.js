@@ -15,12 +15,11 @@ function solve(boardString = bag) {
     }
   }
 
-  if(isSolved(bag)){
+  if (isSolved(bag)){
     return true
   }
-
+  console.log(bag.join(',\n'))
   return false
-
 }
 
 // /
@@ -48,13 +47,13 @@ function workSpace(bag, i, j, a, iS, iE, jS, jE){
         
       }
     }
-    if(schetchik === 81){
-      return true
-    }
+    
+    // if(schetchik === 81){
+    //   return true
+    // }
 
-  bag[i][j] = a
-  isSolved(bag)
-
+    bag[i][j] = a
+    isSolved(bag)
   return true
 }
 
@@ -90,11 +89,14 @@ function isSolved(bag) {
             jE = 2
           }
 
-          findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE);
+          if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE)){
+            isSolved(bag)
+          }
         }
 
-        findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = js, jE = jE);
-
+        if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE)){
+          isSolved(bag)
+        }
       }
       else continue
     }
@@ -120,6 +122,6 @@ module.exports = {
 
 let num = '1-58-2----9--764-52-44--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--' ;
 
-solve(num)
+console.log(solve(num))
 
 
