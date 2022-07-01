@@ -28,48 +28,49 @@ function solve(boardString = bag) {
 //  */
 
 //Работаем с числом
-function workSpace(bag, i, j, a, iS, iE, jS, jE){
-  for (let t = 0; t < bag[i].length; t++){
-
-    if(a == bag[i][t]){
-      return false
+function workSpace(bag, i, j, a, iS, iE, jS, jE, lastI, lastJ) {
+  for (let t = 0; t < bag[i].length; t++) {
+    if (a == bag[i][t]) {
+      return false;
     }
 
-    if(a == bag[t][j]){
-      return false
+    if (a == bag[t][j]) {
+      // if (bag[i][j] === )
+      return false;
     }
   }
 
-    for(let n=0; n < 3; n++){
-      for(let m=0; m < 3; m++){
-        if(a == bag[iS + n][jS + m]) return false
-        if(a == bag[iE + n][jE + m]) return false
-        
-      }
+  for (let n = 0; n < 3; n++) {
+    for (let m = 0; m < 3; m++) {
+      if (a == bag[iS + n][jS + m]) return false;
+      if (a == bag[iE + n][jE + m]) return false;
     }
-    
-    // if(schetchik === 81){
-    //   return true
-    // }
+  }
 
-    bag[i][j] = a
-    isSolved(bag)
-  return true
+  // if(schetchik === 81){
+  //   return true
+  // }
+  
+  bag[i][j] = a;
+  isSolved(bag, (lastI = i), (lastJ = j));
+  return true;
 }
 
 // Наша функция поиска -
-function findSpace(bag, i , j, iS, iE, jS, jE){
+function findSpace(bag, i , j, iS, iE, jS, jE, lastI, lastJ){
   for (let a = 1; a < 10; a++){
-    if (workSpace(bag = bag, i = i, j = j, a = a, iS = iS, iE = iE, jS = jS, jE = jE)){
+    if (workSpace(bag = bag, i = i, j = j, a = a, iS = iS, iE = iE, jS = jS, jE = jE, lastI, lastJ)){
       return true
     } else {
-      workSpace(bag = bag, i = i, j = j, a = a, iS = iS, iE = iE, jS = jS, jE = jE)
+        bag[lastI][lastJ] = '-'
+        workSpace(bag = bag, i = lastI, j = lastJ, a = a+1, iS = iS, iE = iE, jS = jS, jE = jE, lastI, lastJ)
+      }
+      
     }
-    
-  }
-}
 
-function isSolved(bag) {
+  }
+
+function isSolved(bag, lastI, lastJ) {
   // console.log(bag);
   let iS = 0;
   let iE = 2;
@@ -93,12 +94,12 @@ function isSolved(bag) {
             jE = 2
           }
 
-          if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE)){
+          if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE, lastI, lastJ)){
             isSolved(bag)
           }
         }
 
-        if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE)){
+        if(findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE, lastI, lastJ)){
           isSolved(bag)
         }
       }
