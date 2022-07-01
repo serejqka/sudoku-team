@@ -4,7 +4,7 @@
 //  * Возвращает игровое поле после попытки его решить.
 //  * Договорись со своей командой, в каком формате возвращать этот результат.
 //  */
-function solve(boardString) {
+function solve(boardString = bag) {
   let string = '', bag = [];
 
   for (i = 0; i< boardString.length; i++){
@@ -29,46 +29,74 @@ function solve(boardString) {
 //  */
 
 //Работаем с числом
-function workSpace(board){
-  
+function workSpace(bag, i, j, a, iS, iE, jS, jE){
+  for (let t = 0; t < bag[i].length; t++){
 
-  for (let t = 0; t < bag[i]; t++){
-
-    if(a === bag[i][t]){
+    if(a == bag[i][t]){
       return false
     }
 
-    if(a === bag[t][j]){
+    if(a == bag[t][j]){
       return false
     }
-
-    if(bag[i][j]){
-      
-    }
-
   }
-    bag[i][j])
-  if (a === )
+
+    for(let n=0; n < 3; n++){
+      for(let m=0; m < 3; m++){
+        if(a == bag[iS + n][jS + m]) return false
+        if(a == bag[iE + n][jE + m]) return false
+        
+      }
+    }
+    if(schetchik === 81){
+      return true
+    }
+
+  bag[i][j] = a
+  isSolved(bag)
+
+  return true
 }
 
 // Наша функция поиска -
-function findSpace(board){
+function findSpace(bag, i , j, iS, iE, jS, jE){
   for (let a = 1; a < 10; a++){
-    if (workSpace(a)) continue
+    if (workSpace(bag = bag, i = i, j = j, a = a, iS = iS, iE = iE, jS = jS, jE = jE)) continue
 
   }
 }
 
-function isSolved(board) {
-
-  console.log(bag);
-  findWord(bag)
-  for (let i = 0; i < bag.length; i++) {
-    for (let j = 0; j < bag[i].length; j++) {
+function isSolved(bag) {
+  // console.log(bag);
+  let iS = 0;
+  let iE = 2;
+  let jS = 0;
+  let jE = 2;
+  
+  for (let i = 0, iii = 1; i < bag.length; i++, iii++) {
+    for (let j = 0, jjj = 1; j < bag[i].length; j++, jjj++) {
       if (bag[i][j] === "-") {
-        return bag[i][j];
+        if(i < 3 && j < 3){
+          
+          if(jjj % 3 === 0){
+            jS += 3
+            jE += 3
+          }
+
+          if(iii % 3 === 0){
+            iS += 3
+            iE += 2;
+            jS = 0
+            jE = 2
+          }
+
+          findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = jS, jE = jE);
+        }
+
+        findSpace(bag = bag, i = i, j = j, iS = iS, iE = iE, jS = js, jE = jE);
+
       }
-      return null;
+      else continue
     }
   }
 
@@ -90,5 +118,8 @@ module.exports = {
   prettyBoard,
 };
 
+let num = '1-58-2----9--764-52-44--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--' ;
+
+solve(num)
 
 
