@@ -42,7 +42,9 @@ function workSpace(board){
       return false
     }
 
-    if()
+    if(bag[i][j]){
+      
+    }
 
   }
     bag[i][j])
